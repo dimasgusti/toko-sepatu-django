@@ -1,0 +1,38 @@
+{% load rupiah_filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket</title>
+    <link href="/static/output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-6">Your Basket</h1>
+        {% if basket_items %}
+            <div class="space-y-4">
+                {% for item in basket_items %}
+                    <div class="bg-white shadow-md rounded-lg p-4 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-lg font-semibold">{{ item.product.name }}</h2>
+                            <p class="text-sm text-gray-600">Price: {{ item.product.price|rupiah_format }}</p>
+                            <p class="text-sm text-gray-600">Quantity: {{ item.quantity }}</p>
+                        </div>
+                        <form action="{% url 'remove_from_basket' item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="text-red-500 hover:underline">Remove</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="mt-6">
+                <p class="text-lg font-semibold">Total: {{ total_price|rupiah_format }}</p>
+            </div>
+        {% else %}
+            <p class="text-gray-500">Your basket is empty.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
