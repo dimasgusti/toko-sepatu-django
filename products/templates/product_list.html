@@ -1,0 +1,43 @@
+{% load rupiah_filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <ul>
+        {% for product in page_obj %}
+            <li>
+                <strong>{{ product.name }}</strong><br>
+                <p>{{ product.description }}</p>
+                {% comment %} <p><strong>Price:</strong> Rp {{ product.price|floatformat:0 }}</p> {% endcomment %}
+                <p><strong>Price:</strong> {{ product.price|rupiah_format }}</p>
+                <p><strong>Stock:</strong> {{ product.stock }} units available</p>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="200">
+                {% endif %}
+            </li>
+        {% empty %}
+            <p>No products available.</p>
+        {% endfor %}
+    </ul>
+
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </div>
+</body>
+</html>

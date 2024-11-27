@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="../static/output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="flex flex-row justify-between items-center w-full min-h-[5rem] border-b px-4">
+      <ul class="flex flex-row items-center gap-4">
+        <li>Home</li>
+        <li>About</li>
+      </ul>
+      <ul class="flex flex-row items-center gap-4">
+        <li>
+            <a href="">Login</a>
+        </li>
+        <li>
+            <a href="{% url 'register' %}">Register</a>
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>

@@ -554,6 +554,43 @@ video {
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
+.min-h-\[5rem\] {
+  min-height: 5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
