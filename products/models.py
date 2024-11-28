@@ -17,11 +17,19 @@ class Product(models.Model):
         ('Other', 'Other')
     ]
     SIZES = [
-        ('S', 'Small'),
-        ('M', 'Medium'),
-        ('L', 'Large'),
-        ('XL', 'X-Large'),
-    ]
+    ('36', 'EU 36'),
+    ('37', 'EU 37'),
+    ('38', 'EU 38'),
+    ('39', 'EU 39'),
+    ('40', 'EU 40'),
+    ('41', 'EU 41'),
+    ('42', 'EU 42'),
+    ('43', 'EU 43'),
+    ('44', 'EU 44'),
+    ('45', 'EU 45'),
+    ('46', 'EU 46'),
+    ('47', 'EU 47'),
+]
     name = models.CharField(max_length=64)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -40,7 +48,7 @@ class Product(models.Model):
         blank=True
     )
     size = models.CharField(
-        max_length=2,
+        max_length=3,
         choices=SIZES,
         null=True,
         blank=True
@@ -50,25 +58,14 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-class Wishlist(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='wishlists')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='wishlisted_by')
-    added_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('user', 'product')  # Prevent duplicate entries
-
-    def __str__(self):
-        return f"{self.user.username}'s Wishlist - {self.product.name}"
-    
 class Basket(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='baskets')
+    # user = models.ForeignKey('.User', on_delete=models.CASCADE, related_name='baskets')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='in_baskets')
     quantity = models.PositiveIntegerField(default=1)
     added_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        unique_together = ('user', 'product')  # Prevent duplicate entries
+    # class Meta:
+    #     unique_together = ('user', 'product')  # Prevent duplicate entries
 
     def __str__(self):
         return f"{self.user.username}'s Basket - {self.product.name} x {self.quantity}"

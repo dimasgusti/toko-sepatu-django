@@ -20,19 +20,13 @@
             <p class="text-sm"><strong>Color:</strong> {{ product.color }}</p>
             <p class="text-sm"><strong>Size:</strong> {{ product.size }}</p>
             <p class="text-sm"><strong>Price:</strong> {{ product.price|rupiah_format }}</p>
-            <p class="text-sm"><strong>Stock:</strong> {{ product.stock }} units available</p>
+            <p class="text-sm"><strong>Size:</strong> EU {{ product.size }}</p>
 
             <div class="mt-6 flex space-x-4">
                 <form action="{% url 'add_to_basket' product.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
                         Add to Basket
-                    </button>
-                </form>
-                <form action="{% url 'add_to_wishlist' product.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">
-                        Add to Wishlist
                     </button>
                 </form>
             </div>
