@@ -31,5 +31,5 @@ def dashboard(request):
     transactions = Transaction.objects.filter(user=user)
 
     return render(request, 'dashboard.html', {
-        'transactions': transactions  # Pass all transactions to the template
+        'transactions': transactions  
     })

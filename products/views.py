@@ -10,6 +10,9 @@ from .forms import ProductForm
 def product_list(request):
     search_query = request.GET.get('q', '')
     products = Product.objects.all()
+
+    products = products.filter(stock__gt=0)
+
     if search_query:
         products = products.filter(
             Q(name__icontains=search_query) |
@@ -17,6 +20,7 @@ def product_list(request):
             Q(category__name__icontains=search_query) |
             Q(color__icontains=search_query)
         )
+
     paginator = Paginator(products, 10)  
 
     page_number = request.GET.get('page')  
@@ -52,28 +56,27 @@ def add_to_basket(request, product_id):
 
     return redirect('basket_view') 
 
-def remove_from_basket(request, item_id):
-    if not request.user.is_authenticated:
-        return redirect('login')  
-
-    basket_item = get_object_or_404(Basket, id=item_id, user=request.user)
-    basket_item.delete()
-
-    return redirect('basket_view')  
-
 def update_basket_item(request, item_id):
     if not request.user.is_authenticated:
-        return redirect('login')  # Arahkan ke login jika pengguna tidak terautentikasi
+        return redirect('login')
 
     basket_item = get_object_or_404(Basket, id=item_id, user=request.user)
     
-    # Pastikan kuantitas yang diterima valid
     new_quantity = request.POST.get('quantity')
     if new_quantity and new_quantity.isdigit() and int(new_quantity) > 0:
         basket_item.quantity = int(new_quantity)
         basket_item.save()
     
-    return redirect('basket_view')  # Kembali ke tampilan keranjang
+    return redirect('basket_view')
+
+def remove_from_basket(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('login')  
+
+    basket_item = get_object_or_404(Basket, id=item_id, user=request.user)
+    basket_item.delete()  
+
+    return redirect('basket_view')  
 
 def basket_view(request):
     if not request.user.is_authenticated:

@@ -29,7 +29,6 @@
                     <p class="text-sm text-gray-600 mb-2"><strong>Category:</strong> {% if product.category %}{{ product.category.name }}{% else %}No category{% endif %}</p>
                     <p class="text-lg text-blue-600 font-semibold mb-4">{{ product.price|rupiah_format }}</p>
                     
-                    <!-- Tombol untuk menambah produk ke keranjang -->
                     <form action="{% url 'add_to_basket' product.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">Add to Basket</button>

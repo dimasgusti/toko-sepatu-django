@@ -1,4 +1,5 @@
-{% load custom_filters %}  <!-- Load the custom filter if needed -->
+{% load custom_filters %}
+{% load rupiah_filter %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +30,7 @@
                     <option value="bank_transfer">Bank Transfer</option>
                 </select>
             </div>
-            <p class="text-xl font-bold mb-4">Total: Rp {{ total_price }}</p>
+            <p class="text-xl font-bold mb-4">Total: Rp {{ total_price|rupiah_format }}</p>
             <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
                 Confirm and Pay
             </button>

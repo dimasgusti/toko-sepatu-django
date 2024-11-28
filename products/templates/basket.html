@@ -1,3 +1,5 @@
+{% load rupiah_filter %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,39 +8,54 @@
     <title>Basket</title>
     <link href="/static/output.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Your Basket</h1>
+<body class="bg-gray-100">
+    {% include 'components/navbar.html' %}
+    <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg my-8">
+        <div class="mt-6 pb-4">
+            <a href="{% url 'product_list' %}" class="text-blue-500 hover:underline">&laquo; Back to Shopping</a>
+        </div>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Your Basket</h1>
+        
         {% if basket_items %}
-            <table class="table-auto w-full text-left">
-                <thead>
+            <table class="text-left bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                <thead class="bg-blue-500 text-white">
                     <tr>
-                        <th class="px-4 py-2">Product</th>
-                        <th class="px-4 py-2">Quantity</th>
-                        <th class="px-4 py-2">Price</th>
-                        <th class="px-4 py-2">Total</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Product</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Quantity</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Price</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Total</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-gray-700">
                     {% for item in basket_items %}
-                    <tr>
+                    <tr class="hover:bg-gray-100 transition duration-200">
                         <td class="border px-4 py-2">{{ item.product.name }}</td>
-                        <td class="border px-4 py-2">{{ item.quantity }}</td>
-                        <td class="border px-4 py-2">{{ item.product.price }}</td>
-                        <td class="border px-4 py-2">{{ item.total_price }}</td>
+                        <td class="border px-4 py-2">
+                            <form method="POST" action="{% url 'update_basket_item' item.id %}" class="flex items-center space-x-2">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="p-2 border rounded-md">
+                                <button type="submit" class="bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600 transition duration-200">Update</button>
+                            </form>
+                        </td>
+                        <td class="border px-4 py-2">{{ item.product.price|rupiah_format }}</td>
+                        <td class="border px-4 py-2">{{ item.total_price|rupiah_format }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="{% url 'remove_from_basket' item.id %}" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition duration-200">Remove</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="flex justify-between items-center mt-4">
-                <p class="text-xl font-bold">Total: {{ total_price }}</p>
-                <a href="{% url 'checkout' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                    Checkout
-                </a>
+
+            <div class="flex justify-between items-center mt-6">
+                <p class="text-xl font-semibold">Total: <span class="font-bold text-lg text-blue-600">{{ total_price|rupiah_format }}</span></p>
+                <a href="{% url 'checkout' %}" class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-200">Checkout</a>
             </div>
         {% else %}
-            <p class="text-center text-gray-500">Your basket is empty.</p>
+            <p class="text-center text-gray-500 text-xl">Your basket is empty.</p>
         {% endif %}
     </div>
+
 </body>
 </html>
