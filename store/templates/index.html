@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Toko Sepatu</title>
-        <link href="/static/output.css" rel="stylesheet">
-    </head>
-    <body>
-        {% include 'components/navbar.html' %}
-        <h1 class="text-red-500 font-bold underline">Welcome</h1>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toko Sepatu</title>
+    <link href="/static/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50">
+
+    <!-- Navbar -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Hero Section -->
+    <section class="bg-blue-600 text-white py-24">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl font-extrabold sm:text-5xl">Temukan Sepatu Terbaik Anda!</h1>
+        <p class="mt-4 text-lg">Koleksi terbaik sepatu, dibuat untuk anda. Dapatkan gaya terbaru anda dari brand terkenal.</p>
+        <a href="{% url 'product_list' %}" class="mt-6 inline-block bg-white text-blue-600 py-2 px-6 rounded-full text-lg font-semibold hover:bg-gray-100">Jelajah</a>
+      </div>
+    </section>
+
+    <!-- New Products Section -->
+    <section id="products" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-semibold text-center text-gray-800 pb-8">New Arrivals</h2>
+        {% include 'components/product_new.html' %}
+      </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+  </body>
 </html>

@@ -1,0 +1,29 @@
+{% load rupiah_filter %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for product in products %}
+        <div class="bg-white shadow-md rounded-lg p-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover rounded-md mb-4">
+            {% endif %}
+            <h2 class="text-xl font-semibold">
+                <a href="{% url 'product_detail' product.id %}" class="text-blue-500 hover:underline">{{ product.name }}</a>
+            </h2>
+            <p class="text-sm text-gray-600 mb-2">{{ product.description }}</p>
+            <p class="text-sm"><strong>Category:</strong> {% if product.category %}{{ product.category.name }}{% else %}No category{% endif %}</p>
+            <p class="text-sm"><strong>Color:</strong> {{ product.color }}</p>
+            <p class="text-sm"><strong>Price:</strong> {{ product.price|rupiah_format }}</p>
+            <p class="text-sm"><strong>Size:</strong> EU {{ product.size }}</p>
+            <div class="mt-4 flex space-x-2">
+                <form action="{% url 'add_to_basket' product.id %}" method="post" class="w-1/2">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
+                        Add to Basket
+                    </button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <p class="col-span-full text-center text-gray-500">No products available.</p>
+    {% endfor %}
+</div>

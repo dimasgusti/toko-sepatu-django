@@ -9,9 +9,8 @@
     <link href="/static/output.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
+    {% include 'components/navbar.html' %}
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6">Product List</h1>
-
         <form method="get" action="{% url 'product_list' %}" class="mb-6 flex space-x-2">
             <input type="text" name="q" value="{{ search_query }}" placeholder="Search products..." class="form-control p-2 border rounded">
             <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Search</button>
@@ -30,14 +29,11 @@
                     {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover rounded-md mb-4">
                     {% endif %}
-                    <h2 class="text-xl font-semibold">
+                    <h2 class="text-xl font-semibold mb-2">
                         <a href="{% url 'product_detail' product.id %}" class="text-blue-500 hover:underline">{{ product.name }}</a>
                     </h2>
-                    <p class="text-sm text-gray-600 mb-2">{{ product.description }}</p>
-                    <p class="text-sm"><strong>Category:</strong> {% if product.category %}{{ product.category.name }}{% else %}No category{% endif %}</p>
-                    <p class="text-sm"><strong>Color:</strong> {{ product.color }}</p>
-                    <p class="text-sm"><strong>Price:</strong> {{ product.price|rupiah_format }}</p>
-                    <p class="text-sm"><strong>Size:</strong> EU {{ product.size }}</p>
+                    <p class="text-sm text-gray-600 mb-2"><strong>Category:</strong> {% if product.category %}{{ product.category.name }}{% else %}No category{% endif %}</p>
+                    <p class="text-lg text-blue-600 font-semibold mb-4">{{ product.price|rupiah_format }}</p>
                     <div class="mt-4 flex space-x-2">
                         <form action="{% url 'add_to_basket' product.id %}" method="post" class="w-1/2">
                             {% csrf_token %}
