@@ -1,18 +1,35 @@
-<!-- account/templates/account/signin.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Sign In</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}  <!-- Render login form fields here -->
-        <button type="submit">Sign In</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
+        <h2 class="text-3xl font-bold text-center text-blue-500 mb-6">Sign In</h2>
+        
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div class="space-y-2">
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" name="username" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            
+            <div class="space-y-2">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            
+            <button type="submit" class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">Sign In</button>
+        </form>
+        
+        <p class="mt-4 text-center text-sm text-gray-600">Don't have an account? <a href="{% url 'signup' %}" class="text-blue-500 hover:underline">Sign up here</a></p>
+    </div>
 </body>
+
 </html>

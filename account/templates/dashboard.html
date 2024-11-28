@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50">
+    {% include 'components/navbar.html' %}
+
+    <div class="container mx-auto px-4 py-8">
+      {% if user.is_authenticated %}
+        <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
+          <p class="text-xl font-semibold">Welcome, {{ user.username }}!</p>
+          <form action="{% url 'logout' %}" method="post" class="mt-4">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">Logout</button>
+          </form>
+        </div>
+
+        <div class="bg-green-50 p-4 rounded-md">
+          <h2 class="text-2xl font-bold text-green-800">Your Dashboard</h2>
+          <p class="text-gray-600">View your account details and transactions.</p>
+
+          {% if transactions %}
+            <div class="mt-4 p-4 bg-white shadow-md rounded-lg">
+              <h3 class="text-xl font-semibold">Your Transactions</h3>
+              
+              <table class="min-w-full table-auto mt-4 border-collapse">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th class="px-4 py-2 text-left font-semibold text-gray-700">Transaction ID</th>
+                    <th class="px-4 py-2 text-left font-semibold text-gray-700">Total</th>
+                    <th class="px-4 py-2 text-left font-semibold text-gray-700">Status</th>
+                    <th class="px-4 py-2 text-left font-semibold text-gray-700">Payment Method</th>
+                    <th class="px-4 py-2 text-left font-semibold text-gray-700">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for transaction in transactions %}
+                    <tr class="border-b hover:bg-gray-50">
+                      <td class="px-4 py-2">{{ transaction.id }}</td>
+                      <td class="px-4 py-2">Rp {{ transaction.total|floatformat:0 }}</td>
+                      <td class="px-4 py-2">{{ transaction.get_status_display }}</td>
+                      <td class="px-4 py-2">{{ transaction.payment_method }}</td>
+                      <td class="px-4 py-2">
+                        <a href="{% url 'transaction_detail' transaction.id %}" class="text-blue-500 hover:underline">View Details</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p class="text-gray-700 mt-4">You haven't made any transactions yet. Start shopping now!</p>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="bg-white shadow-lg rounded-lg p-6">
+          <p class="text-gray-700">
+            Please <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> to access your dashboard.
+          </p>
+        </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

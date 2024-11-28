@@ -13,8 +13,21 @@
             </a>
         </li>
       </ul>
-      <ul>
-        <li class="">
+      <ul class="flex flex-row items-center gap-4">
+        <li>
+            <a href="{% url 'product_list' %}">
+                Koleksi Sepatu
+            </a>
+        </li>
+      </ul>
+      <ul class="flex flex-row justify-end items-center gap-2">
+        <li>
+          <a href="{% url 'basket_view' %}" class="flex flex-row items-center gap-2">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Keranjang</p>
+          </a>
+        </li>
+        <li>
             {% if user.is_authenticated %}
                 <a href="{% url 'account' %}" class="flex flex-row items-center gap-2">
                     <i class="fas fa-user"></i>

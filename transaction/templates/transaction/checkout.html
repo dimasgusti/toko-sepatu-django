@@ -1,0 +1,39 @@
+{% load custom_filters %}  <!-- Load the custom filter if needed -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="/static/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-4">Checkout</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+                <h2 class="text-xl font-semibold">Basket Items:</h2>
+                <ul>
+                    {% for item in basket_items %}
+                    <li>{{ item.product.name }} x {{ item.quantity }} = Rp {{ item.product.price|multiply_and_format:item.quantity }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mb-4">
+                <label for="payment_method" class="block mb-2 text-sm font-medium text-gray-700">Payment Method:</label>
+                <select name="payment_method" id="payment_method" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <option value="credit_card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                </select>
+            </div>
+            <p class="text-xl font-bold mb-4">Total: Rp {{ total_price }}</p>
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
+                Confirm and Pay
+            </button>
+        </form>
+    </div>
+</body>
+</html>

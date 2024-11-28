@@ -16,12 +16,6 @@
             <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Search</button>
             <a href="{% url 'product_list' %}" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition">Reset</a>
         </form>
-
-        <div class="flex justify-between mb-6">
-            <a href="{% url 'basket_view' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                Go to Basket
-            </a>
-        </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for product in page_obj %}
@@ -34,14 +28,12 @@
                     </h2>
                     <p class="text-sm text-gray-600 mb-2"><strong>Category:</strong> {% if product.category %}{{ product.category.name }}{% else %}No category{% endif %}</p>
                     <p class="text-lg text-blue-600 font-semibold mb-4">{{ product.price|rupiah_format }}</p>
-                    <div class="mt-4 flex space-x-2">
-                        <form action="{% url 'add_to_basket' product.id %}" method="post" class="w-1/2">
-                            {% csrf_token %}
-                            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                                Add to Basket
-                            </button>
-                        </form>
-                    </div>
+                    
+                    <!-- Tombol untuk menambah produk ke keranjang -->
+                    <form action="{% url 'add_to_basket' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">Add to Basket</button>
+                    </form>
                 </div>
             {% empty %}
                 <p class="col-span-full text-center text-gray-500">No products available.</p>

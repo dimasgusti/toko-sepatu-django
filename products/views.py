@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.http import HttpResponseBadRequest
 from .models import Product, Basket
 from .forms import ProductForm
 
@@ -38,26 +39,50 @@ def create_product(request):
 
     return render(request, 'create_product.html', {'form': form})
 
+def add_to_basket(request, product_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    product = get_object_or_404(Product, id=product_id)
+    basket_item, created = Basket.objects.get_or_create(user=request.user, product=product)
+
+    if not created:
+        basket_item.quantity += 1
+        basket_item.save()
+
+    return redirect('basket_view') 
+
+def remove_from_basket(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('login')  
+
+    basket_item = get_object_or_404(Basket, id=item_id, user=request.user)
+    basket_item.delete()
+
+    return redirect('basket_view')  
+
+def update_basket_item(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('login')  # Arahkan ke login jika pengguna tidak terautentikasi
+
+    basket_item = get_object_or_404(Basket, id=item_id, user=request.user)
+    
+    # Pastikan kuantitas yang diterima valid
+    new_quantity = request.POST.get('quantity')
+    if new_quantity and new_quantity.isdigit() and int(new_quantity) > 0:
+        basket_item.quantity = int(new_quantity)
+        basket_item.save()
+    
+    return redirect('basket_view')  # Kembali ke tampilan keranjang
+
 def basket_view(request):
     if not request.user.is_authenticated:
         return redirect('login')  
 
     basket_items = Basket.objects.filter(user=request.user)
-    total_price = sum(item.product.price * item.quantity for item in basket_items)
-    context = {
+    total_price = sum(item.total_price() for item in basket_items)
+
+    return render(request, 'basket.html', {
         'basket_items': basket_items,
         'total_price': total_price,
-    }
-    return render(request, 'basket.html', context)
-
-def add_to_basket(request, product_id):
-    if request.method == 'POST':
-        product = get_object_or_404(Product, id=product_id)
-        Basket.objects.create(user=request.user, product=product, quantity=1)
-        return redirect('product_list')
-    
-def remove_from_basket(request, item_id):
-    if request.method == 'POST':
-        basket_item = get_object_or_404(Basket, id=item_id, user=request.user)
-        basket_item.delete()
-    return redirect('basket_view')
+    })

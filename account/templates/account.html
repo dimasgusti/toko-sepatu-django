@@ -3,49 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Account Management</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
     {% include 'components/navbar.html' %}
+    
     <div class="container mx-auto px-4 py-8">
         {% if user.is_authenticated %}
             <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
                 <p class="text-xl font-semibold">Welcome, {{ user.username }}!</p>
-                <p class="text-gray-700">Your role is: {{ user.role }}</p>
                 <form action="{% url 'logout' %}" method="post" class="mt-4">
                     {% csrf_token %}
                     <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">Logout</button>
                 </form>
             </div>
 
-            {% if user.role == 'admin' %}
-                <div class="bg-blue-50 p-4 rounded-md">
-                    <h2 class="text-2xl font-bold text-blue-800">Admin Dashboard</h2>
-                    <p class="text-gray-600">Manage users, content, and settings.</p>
-                    {% comment %} <a href="{% url 'admin_dashboard' %}" class="text-blue-500 hover:underline">Go to Admin Panel</a> {% endcomment %}
-                </div>
-
-            {% elif user.role == 'user' %}
-                <div class="bg-green-50 p-4 rounded-md">
-                    <h2 class="text-2xl font-bold text-green-800">User Dashboard</h2>
-                    <p class="text-gray-600">View your account details and transactions.</p>
-                    {% comment %} <a href="{% url 'user_dashboard' %}" class="text-green-500 hover:underline">Go to Your Account</a> {% endcomment %}
-                </div>
-
-            {% elif user.role == 'courier' %}
-                <div class="bg-yellow-50 p-4 rounded-md">
-                    <h2 class="text-2xl font-bold text-yellow-800">Courier Dashboard</h2>
-                    <p class="text-gray-600">View and manage delivery tasks.</p>
-                    {% comment %} <a href="{% url 'courier_dashboard' %}" class="text-yellow-500 hover:underline">Go to Courier Panel</a> {% endcomment %}
-                </div>
-            {% endif %}
+            <div class="bg-blue-50 p-4 rounded-md">
+                <h2 class="text-2xl font-bold text-blue-800">Account Settings</h2>
+                <p class="text-gray-600">Manage your account settings and preferences.</p>
+                <ul>
+                    <li><a href="#" class="text-blue-500 hover:underline">Edit Profile</a></li>
+                    <li><a href="{% url 'dashboard' %}" class="text-blue-500 hover:underline">Go to Dashboard</a></li>
+                </ul>
+            </div>
         {% else %}
             <div class="bg-white shadow-lg rounded-lg p-6">
-                <p class="text-gray-700">Please <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> or <a href="{% url 'signup' %}" class="text-blue-500 hover:underline">Sign Up</a></p>
+                <p class="text-gray-700">
+                    Please <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> or <a href="{% url 'signup' %}" class="text-blue-500 hover:underline">Sign Up</a> to manage your account.
+                </p>
             </div>
         {% endif %}
     </div>
-
 </body>
 </html>

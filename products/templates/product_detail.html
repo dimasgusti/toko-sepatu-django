@@ -32,15 +32,6 @@
                 </div>
 
                 <p class="text-gray-600 mb-6">{{ product.description }}</p>
-
-                <div class="flex space-x-4 mt-6">
-                    <form action="{% url 'add_to_basket' product.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                            Add to Basket
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>

@@ -14,14 +14,6 @@
             <p class="text-sm"><strong>Color:</strong> {{ product.color }}</p>
             <p class="text-sm"><strong>Price:</strong> {{ product.price|rupiah_format }}</p>
             <p class="text-sm"><strong>Size:</strong> EU {{ product.size }}</p>
-            <div class="mt-4 flex space-x-2">
-                <form action="{% url 'add_to_basket' product.id %}" method="post" class="w-1/2">
-                    {% csrf_token %}
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                        Add to Basket
-                    </button>
-                </form>
-            </div>
         </div>
     {% empty %}
         <p class="col-span-full text-center text-gray-500">No products available.</p>
