@@ -28,3 +28,6 @@
 ---
 
 ### 👥 Kontributor
+1. Gusti Dimas
+2. Davis
+3. Christian
