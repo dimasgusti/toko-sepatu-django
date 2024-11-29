@@ -18,11 +18,25 @@
         <div class="space-y-2">
           <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
           {{ form.username|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+          {% if form.username.errors %}
+            <p class="text-red-500 text-sm mt-1">
+              {% for error in form.username.errors %}
+                {{ error }}
+              {% endfor %}
+            </p>
+          {% endif %}
         </div>
 
         <div class="space-y-2">
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
           {{ form.email|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+          {% if form.email.errors %}
+            <p class="text-red-500 text-sm mt-1">
+              {% for error in form.username.errors %}
+                {{ error }}
+              {% endfor %}
+            </p>
+          {% endif %}
         </div>
 
         <div class="space-y-2">
@@ -43,11 +57,25 @@
         <div class="space-y-2">
           <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
           {{ form.password1|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+          {% if form.password1.errors %}
+            <p class="text-red-500 text-sm mt-1">
+              {% for error in form.username.errors %}
+                {{ error }}
+              {% endfor %}
+            </p>
+          {% endif %}
         </div>
 
         <div class="space-y-2">
           <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
           {{ form.password2|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+          {% if form.password2.errors %}
+            <p class="text-red-500 text-sm mt-1">
+              {% for error in form.username.errors %}
+                {{ error }}
+              {% endfor %}
+            </p>
+          {% endif %}
         </div>
 
         {% if form.non_field_errors %}
