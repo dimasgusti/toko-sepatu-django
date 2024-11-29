@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 def product_list(request):
-    if not request.user.groups.filter(name='user').exists():
-        return redirect('account')
     
     search_query = request.GET.get('q', '')
     products = Product.objects.all()
@@ -104,9 +102,6 @@ def remove_from_basket(request, item_id):
 def basket_view(request):
     if not request.user.is_authenticated:
         return redirect('login')  
-    
-    if not request.user.groups.filter(name='user').exists():
-        return redirect('account')
 
     basket_items = Basket.objects.filter(user=request.user)
     total_price = sum(item.total_price() for item in basket_items)

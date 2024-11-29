@@ -2,58 +2,71 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-        <h2 class="text-3xl font-bold text-center text-blue-500 mb-6">Sign Up</h2>
-        
-        <form method="POST" class="space-y-4">
-            {% csrf_token %}
-            
-            <div class="space-y-2">
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                {{ form.username|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+      <h2 class="text-3xl font-bold text-center text-blue-500 mb-6">Sign Up</h2>
 
-            <div class="space-y-2">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                {{ form.email|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+      <form method="POST" class="space-y-4">
+        {% csrf_token %}
 
-            <div class="space-y-2">
-                <label for="telephone" class="block text-sm font-medium text-gray-700">Telephone (optional)</label>
-                {{ form.telephone|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+        <div class="space-y-2">
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          {{ form.username|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
 
-            <div class="space-y-2">
-                <label for="address" class="block text-sm font-medium text-gray-700">Address (optional)</label>
-                {{ form.address|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+        <div class="space-y-2">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          {{ form.email|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
 
-            <div class="space-y-2">
-                <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-                {{ form.role|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+        <div class="space-y-2">
+          <label for="telephone" class="block text-sm font-medium text-gray-700">Telephone (optional)</label>
+          {{ form.telephone|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
 
-            <div class="space-y-2">
-                <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
-                {{ form.password1|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+        <div class="space-y-2">
+          <label for="address" class="block text-sm font-medium text-gray-700">Address (optional)</label>
+          {{ form.address|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
 
-            <div class="space-y-2">
-                <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                {{ form.password2|add_class:"w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-            </div>
+        <div class="space-y-2">
+          <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+          {{ form.role|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
 
-            <button type="submit" class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">Sign Up</button>
-        </form>
+        <div class="space-y-2">
+          <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
+          {{ form.password1|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
 
-        <p class="mt-4 text-center text-sm text-gray-600">Already have an account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login here</a></p>
+        <div class="space-y-2">
+          <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          {{ form.password2|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
+        </div>
+
+        {% if form.non_field_errors %}
+          <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+            <p class="font-bold">There was an error</p>
+            <ul>
+              {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <button type="submit" class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">Sign Up</button>
+      </form>
+
+      <p class="mt-4 text-center text-sm text-gray-600">
+        Already have an account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login here</a>
+      </p>
     </div>
-</body>
+  </body>
 </html>
