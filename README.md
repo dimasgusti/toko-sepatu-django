@@ -21,7 +21,8 @@
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **Backend**: Django 5.0.4
+- **Backend**: Django 5.1.3.
+- **Python**: 3.12.6
 - **Frontend**: HTML, CSS, Tailwind CSS, dan JavaScript
 - **Database**: SQLite (dapat di-upgrade ke PostgreSQL/MySQL)
 
