@@ -29,6 +29,6 @@
 ---
 
 ### 👥 Kontributor
-1. Gusti Dimas
-2. Davis
-3. Christian
+1. Gusti Dimas Novarossi
+2. Mohd. Davis Vernanditya Adni
+3. Christian Roberto Apui
