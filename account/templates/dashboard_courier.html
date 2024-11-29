@@ -17,16 +17,16 @@
       {% if user.is_authenticated %}
         {% if page_obj %}
           <div class="mt-4 p-4 bg-white shadow-md rounded-lg">
-            <h3 class="text-xl font-semibold">Manage Transactions</h3>
+            <h3 class="text-xl font-semibold">Manage Pengiriman</h3>
 
             <table class="min-w-full table-auto mt-4 border-collapse text-left">
               <thead>
                 <tr class="bg-gray-100">
-                  <th class="px-4 py-2 text-gray-700">Transaction ID</th>
+                  <th class="px-4 py-2 text-gray-700">Transaksi ID</th>
                   <th class="px-4 py-2 text-gray-700">User</th>
                   <th class="px-4 py-2 text-gray-700">Total</th>
-                  <th class="px-4 py-2 text-gray-700">Current Status</th>
-                  <th class="px-4 py-2 text-gray-700">Update Status</th>
+                  <th class="px-4 py-2 text-gray-700">Status Sekarang</th>
+                  <th class="px-4 py-2 text-gray-700">Ubah Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -74,12 +74,12 @@
             </div>
           </div>
         {% else %}
-          <p class="text-gray-700 mt-4">No transactions to manage at this time.</p>
+          <p class="text-gray-700 mt-4">Tidak ada transaksi saat ini.</p>
         {% endif %}
       {% else %}
         <div class="bg-white shadow-lg rounded-lg p-6">
           <p class="text-gray-700">
-            Please <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> to access your dashboard.
+            Tolong <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> untuk mengakses dashboard.
           </p>
         </div>
       {% endif %}

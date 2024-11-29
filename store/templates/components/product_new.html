@@ -10,12 +10,12 @@
                 <a href="{% url 'product_detail' product.id %}" class="text-blue-500 hover:underline">{{ product.name }}</a>
             </h2>
             <p class="text-sm text-gray-600 mb-2">{{ product.description }}</p>
-            <p class="text-sm"><strong>Category:</strong> {% if product.category %}{{ product.category.name }}{% else %}No category{% endif %}</p>
-            <p class="text-sm"><strong>Color:</strong> {{ product.color }}</p>
-            <p class="text-sm"><strong>Price:</strong> {{ product.price|rupiah_format }}</p>
-            <p class="text-sm"><strong>Size:</strong> EU {{ product.size }}</p>
+            <p class="text-sm"><strong>Kategori:</strong> {% if product.category %}{{ product.category.name }}{% else %}Tidak ada kategori{% endif %}</p>
+            <p class="text-sm"><strong>Warna:</strong> {{ product.color }}</p>
+            <p class="text-sm"><strong>Harga:</strong> {{ product.price|rupiah_format }}</p>
+            <p class="text-sm"><strong>Ukuran:</strong> EU {{ product.size }}</p>
         </div>
     {% empty %}
-        <p class="col-span-full text-center text-gray-500">No products available.</p>
+        <p class="col-span-full text-center text-gray-500">Tidak ada produk saat ini.</p>
     {% endfor %}
 </div>

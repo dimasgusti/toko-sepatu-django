@@ -12,32 +12,32 @@
     {% include 'components/navbar.html' %}
     <div class="container mx-auto px-4 py-8">
         <div class="mt-6 pb-4">
-            <a href="{% url 'account' %}" class="text-blue-500 hover:underline">&laquo; Back to Account</a>
+            <a href="{% url 'account' %}" class="text-blue-500 hover:underline">&laquo; Kembali</a>
         </div>
       {% if user.is_authenticated %}
         {% if transactions %}
           <div class="mt-4 p-4 bg-white shadow-md rounded-lg">
-            <h3 class="text-xl font-semibold">Your Transactions</h3>
+            <h3 class="text-xl font-semibold">Transaksi Anda</h3>
 
             <table class="min-w-full table-auto mt-4 border-collapse text-left">
               <thead>
                 <tr class="bg-gray-100">
-                  <th class="px-4 py-2 text-gray-700">Transaction ID</th>
+                  <th class="px-4 py-2 text-gray-700">Transaksi ID</th>
                   <th class="px-4 py-2 text-gray-700">Total</th>
                   <th class="px-4 py-2 text-gray-700">Status</th>
-                  <th class="px-4 py-2 text-gray-700">Payment Method</th>
-                  <th class="px-4 py-2 text-gray-700">Details</th>
+                  <th class="px-4 py-2 text-gray-700">Metode Pembayaran</th>
+                  <th class="px-4 py-2 text-gray-700">Detail</th>
                 </tr>
               </thead>
               <tbody>
                 {% for transaction in transactions %}
                   <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-2">{{ transaction.id }}</td>
-                    <td class="px-4 py-2">Rp {{ transaction.total|rupiah_format }}</td>
+                    <td class="px-4 py-2">{{ transaction.total|rupiah_format }}</td>
                     <td class="px-4 py-2">{{ transaction.get_status_display }}</td>
                     <td class="px-4 py-2">{{ transaction.payment_method }}</td>
                     <td class="px-4 py-2">
-                      <a href="{% url 'transaction_detail' transaction.id %}" class="text-blue-500 hover:underline">View Details</a>
+                      <a href="{% url 'transaction_detail' transaction.id %}" class="text-blue-500 hover:underline">Lihat Detail</a>
                     </td>
                   </tr>
                 {% endfor %}

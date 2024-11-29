@@ -14,15 +14,15 @@
         <div class="mt-6 pb-4">
             <a href="{% url 'product_list' %}" class="text-blue-500 hover:underline">&laquo; Back to Shopping</a>
         </div>
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Your Basket</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Keranjang Anda</h1>
         
         {% if basket_items %}
             <table class="text-left bg-gray-50 rounded-lg shadow-lg overflow-hidden">
                 <thead class="bg-blue-500 text-white">
                     <tr>
-                        <th class="px-4 py-2 text-sm font-semibold">Product</th>
-                        <th class="px-4 py-2 text-sm font-semibold">Quantity</th>
-                        <th class="px-4 py-2 text-sm font-semibold">Price</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Nama</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Jumlah</th>
+                        <th class="px-4 py-2 text-sm font-semibold">Harga</th>
                         <th class="px-4 py-2 text-sm font-semibold">Total</th>
                         <th class="px-4 py-2 text-sm font-semibold">Action</th>
                     </tr>

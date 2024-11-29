@@ -10,14 +10,14 @@
 </head>
 <body class="bg-gray-100">
     <div class="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-8">
-        <h2 class="text-3xl font-bold text-center mb-6">Transaction Details</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">Transaksi Details</h2>
 
-        <p><strong>Transaction ID:</strong> {{ transaction.id }}</p>
+        <p><strong>Transaksi ID:</strong> {{ transaction.id }}</p>
         <p><strong>Status:</strong> {{ transaction.get_status_display }}</p>
-        <p><strong>Payment Method:</strong> {{ transaction.get_payment_method_display }}</p>
+        <p><strong>Metode Pembayaran:</strong> {{ transaction.get_payment_method_display }}</p>
         <p><strong>Total Amount:</strong> {{ transaction.total|rupiah_format }}</p>
 
-        <a href="{% url 'dashboard' %}" class="text-blue-500 hover:underline mt-4 block text-center">Back to Dashboard</a>
+        <a href="{% url 'dashboard' %}" class="text-blue-500 hover:underline mt-4 block text-center">Kembali</a>
     </div>
 </body>
 </html>

@@ -12,17 +12,17 @@
     <div class="container mx-auto px-4 py-8">
       {% if user.is_authenticated %}
         <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
-          <p class="text-xl font-semibold">Welcome, {{ user.username }}!</p>
+          <p class="text-xl font-semibold">Selamat datang, {{ user.username }}!</p>
           <p>Email: {{ user.email }}</p>
-          <p>Telephone: {{ user.telephone }}</p>
-          <p class="">Address: {{ user.address }}</p>
+          <p>Nomor Telepon: {{ user.telephone }}</p>
+          <p class="">Alamat: {{ user.address }}</p>
           <div class="flex flex-row justify-start items-center pt-4 gap-2">
             {% if user.role == 'user' %}
-              <a href="{% url 'dashboard' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Transaction</a>
+              <a href="{% url 'dashboard' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Lihat Transaksi</a>
             {% elif user.role == 'admin' %}
               <a href="{% url 'dashboard_admin' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Manage Products</a>
             {% else %}
-              <a href="{% url 'dashboard_courier' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Manage Delivery</a>
+              <a href="{% url 'dashboard_courier' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Manage Pengiriman</a>
             {% endif %}
             <form action="{% url 'logout' %}" method="post">
               {% csrf_token %}
@@ -33,7 +33,7 @@
       {% else %}
         <div class="bg-white shadow-lg rounded-lg p-6">
           <p class="text-gray-700">
-            Please <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> or <a href="{% url 'signup' %}" class="text-blue-500 hover:underline">Sign Up</a> to manage your account.
+            Tolong <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login</a> atau <a href="{% url 'signup' %}" class="text-blue-500 hover:underline">Sign Up</a> untuk mengakses dashboard.
           </p>
         </div>
       {% endif %}

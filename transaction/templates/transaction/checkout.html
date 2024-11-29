@@ -15,7 +15,7 @@
         <form method="POST">
             {% csrf_token %}
             <div class="mb-4">
-                <h2 class="text-xl font-semibold">Basket Items:</h2>
+                <h2 class="text-xl font-semibold">Barang Keranjang:</h2>
                 <ul>
                     {% for item in basket_items %}
                     <li>{{ item.product.name }} x {{ item.quantity }} = Rp {{ item.product.price|multiply_and_format:item.quantity }}</li>
@@ -23,16 +23,16 @@
                 </ul>
             </div>
             <div class="mb-4">
-                <label for="payment_method" class="block mb-2 text-sm font-medium text-gray-700">Payment Method:</label>
+                <label for="payment_method" class="block mb-2 text-sm font-medium text-gray-700">Metode Pembayaran:</label>
                 <select name="payment_method" id="payment_method" class="w-full p-3 border border-gray-300 rounded-lg">
                     <option value="credit_card">Credit Card</option>
                     <option value="paypal">PayPal</option>
                     <option value="bank_transfer">Bank Transfer</option>
                 </select>
             </div>
-            <p class="text-xl font-bold mb-4">Total: Rp {{ total_price|rupiah_format }}</p>
+            <p class="text-xl font-bold mb-4">Total: {{ total_price|rupiah_format }}</p>
             <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                Confirm and Pay
+                Setuju dan Bayar
             </button>
         </form>
     </div>

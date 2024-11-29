@@ -40,12 +40,12 @@
         </div>
 
         <div class="space-y-2">
-          <label for="telephone" class="block text-sm font-medium text-gray-700">Telephone (optional)</label>
+          <label for="telephone" class="block text-sm font-medium text-gray-700">Nomor Telepon (optional)</label>
           {{ form.telephone|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
         </div>
 
         <div class="space-y-2">
-          <label for="address" class="block text-sm font-medium text-gray-700">Address (optional)</label>
+          <label for="address" class="block text-sm font-medium text-gray-700">Alamat (optional)</label>
           {{ form.address|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
         </div>
 
@@ -67,7 +67,7 @@
         </div>
 
         <div class="space-y-2">
-          <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <label for="password2" class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
           {{ form.password2|add_class:'w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500' }}
           {% if form.password2.errors %}
             <p class="text-red-500 text-sm mt-1">
@@ -80,7 +80,7 @@
 
         {% if form.non_field_errors %}
           <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
-            <p class="font-bold">There was an error</p>
+            <p class="font-bold">Terdapat error</p>
             <ul>
               {% for error in form.non_field_errors %}
                 <li>{{ error }}</li>
@@ -93,7 +93,7 @@
       </form>
 
       <p class="mt-4 text-center text-sm text-gray-600">
-        Already have an account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login here</a>
+        Sudah punya akun? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Login disini</a>
       </p>
     </div>
   </body>
