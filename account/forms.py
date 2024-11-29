@@ -7,7 +7,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     telephone = forms.CharField(max_length=15, required=False)
     address = forms.CharField(widget=forms.Textarea, required=False)
-    role = forms.ChoiceField(choices=User.ROLE_CHOICES, initial='user', disabled=True)
+    role = forms.ChoiceField(choices=User.ROLE_CHOICES, initial='user')
 
     class Meta:
         model = User

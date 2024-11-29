@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from .models import Transaction
@@ -65,3 +65,13 @@ def transaction_detail(request, transaction_id):
 def transaction_success(request, transaction_id):
     transaction = Transaction.objects.get(id=transaction_id, user=request.user)
     return render(request, "transaction/success.html", {"transaction": transaction})
+
+@login_required
+def update_transaction_status(request, pk):
+    transaction = get_object_or_404(Transaction, pk=pk)
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        if status in ['purchased', 'ondeliver', 'done']:
+            transaction.status = status
+            transaction.save()
+    return redirect('dashboard_courier')

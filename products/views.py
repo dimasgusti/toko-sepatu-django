@@ -1,13 +1,15 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
 from django.db.models import Q
-from django.http import HttpResponseBadRequest
 from .models import Product, Basket
 from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 def product_list(request):
+    if not request.user.groups.filter(name='user').exists():
+        return redirect('account')
+    
     search_query = request.GET.get('q', '')
     products = Product.objects.all()
 
@@ -42,6 +44,26 @@ def create_product(request):
         form = ProductForm()
 
     return render(request, 'create_product.html', {'form': form})
+
+@login_required
+def edit_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard_admin')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'edit_product.html', {'form': form, 'product': product})
+
+@login_required
+def delete_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('dashboard_admin')  
+    return render(request, 'delete_product.html', {'product': product})
 
 def add_to_basket(request, product_id):
     if not request.user.is_authenticated:
@@ -78,9 +100,13 @@ def remove_from_basket(request, item_id):
 
     return redirect('basket_view')  
 
+@login_required
 def basket_view(request):
     if not request.user.is_authenticated:
         return redirect('login')  
+    
+    if not request.user.groups.filter(name='user').exists():
+        return redirect('account')
 
     basket_items = Basket.objects.filter(user=request.user)
     total_price = sum(item.total_price() for item in basket_items)

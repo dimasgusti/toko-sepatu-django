@@ -4,6 +4,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 from transaction.models import Transaction
+from products.models import Product
+from django.core.paginator import Paginator
 
 def account(request):
     return render(request, 'account.html')
@@ -27,9 +29,24 @@ class CustomLoginView(LoginView):
 @login_required
 def dashboard(request):
     user = request.user
-    # Fetch all transactions related to the user
     transactions = Transaction.objects.filter(user=user)
-
     return render(request, 'dashboard.html', {
         'transactions': transactions  
+    })
+    
+@login_required
+def dashboard_admin(request):
+    products = Product.objects.all()
+    return render(request, 'dashboard_admin.html', {
+        'products': products
+    })
+    
+@login_required
+def dashboard_courier(request):
+    transaction = Transaction.objects.all().order_by('-date')
+    paginator = Paginator(transaction, 10)  
+    page_number = request.GET.get('page')  
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'dashboard_courier.html', {
+        'page_obj': page_obj
     })

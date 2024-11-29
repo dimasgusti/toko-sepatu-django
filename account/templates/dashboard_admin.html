@@ -1,0 +1,56 @@
+{% load rupiah_filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50">
+    {% include 'components/navbar.html' %}
+    <div class="container mx-auto px-4 py-8">
+      <div class="mt-6 pb-4">
+        <a href="{% url 'account' %}" class="text-blue-500 hover:underline">&laquo; Back to Account</a>
+      </div>
+
+      <div class="mt-4 p-4 bg-white shadow-md rounded-lg">
+        <div class="flex flex-row justify-between">
+            <h3 class="text-xl font-semibold">Manage Products</h3>
+            <a href="{% url 'create_product' %}" class="text-blue-500 hover:underline">Create new</a>
+        </div>
+        {% if products %}
+          <table class="min-w-full table-auto mt-4 border-collapse text-left">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-gray-700">Product ID</th>
+                <th class="px-4 py-2 text-gray-700">Name</th>
+                <th class="px-4 py-2 text-gray-700">Price</th>
+                <th class="px-4 py-2 text-gray-700">Stock</th>
+                <th class="px-4 py-2 text-gray-700">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in products %}
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-4 py-2">{{ product.id }}</td>
+                  <td class="px-4 py-2">{{ product.name }}</td>
+                  <td class="px-4 py-2">{{ product.price|rupiah_format }}</td>
+                  <td class="px-4 py-2">{{ product.stock }}</td>
+                  <td class="px-4 py-2">
+                    <a href="{% url 'product_detail' product.id %}" class="text-blue-500 hover:underline">View</a>
+                    <a href="{% url 'edit_product' product.id %}" class="text-yellow-500 hover:underline">Edit</a>
+                    <a href="{% url 'delete_product' product.id %}" class="text-red-500 hover:underline">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="text-gray-700 mt-4">No products available. Add some products to display here.</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
